@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+{% block title %}Administrador Inicio Sesión{% endblock %}
+{% block body %}
+
+<style>
+    .login-container {
+        background-color: rgba(147, 219, 149, 0.8);
+        border-radius: 25px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .login-title {
+        font-weight: bold;
+        color: #4C7A61;
+        text-align: center;
+    }
+    .btn-primary {
+        background-color: #4C7A61;
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #3A6950;
+    }
+</style>
+
+<div class="col-md-4 offset-md-4 mt-5">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="login-container">
+        <h2 class="login-title">Iniciar Sesión</h2>
+        <!-- en "action" se pone lo que indica el @app.route('/login_admin'), no el nombre de función -->
+        <form action="/login_admin" method="POST">
+
+            <div class="form-group">
+                <label for="nombre">Ingresa tu nombre</label>
+                <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre">
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Ingresa tu teléfono</label>
+                <input class="form-control" type="text" id="telefono" name="telefono" placeholder="Teléfono">
+            </div>
+
+            <div class="form-group">
+                <label for="contrasena">Ingresa tu contraseña</label>
+                <input class="form-control" type="password" id="contrasena" name="contrasena" placeholder="Contraseña">
+            </div>
+
+            <button class="btn btn-primary btn-block btn-lg mt-1" type="submit">
+                Iniciar Sesión
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

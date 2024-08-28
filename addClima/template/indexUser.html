@@ -1,0 +1,119 @@
+{% extends 'layout.html' %}
+{% block title %}Usuario{% endblock %}
+{% block body %}
+
+<style>
+    .profile-container {
+        background-color: rgba(182, 221, 190, 0.9);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    .profile-header {
+        background-color: #4C7A61;
+        padding: 20px 0;
+        color: white;
+        border-radius: 50px;
+        margin-bottom: 10px;
+    }
+    .profile-badge {
+        background-color: #FFD166;
+        padding: 5px 15px;
+        border-radius: 50px;
+    }
+    .profile-item {
+        border: none;
+        border-radius: 0;
+        background-color: #A8E6CF;
+        transition: background-color 0.3s ease;
+    }
+    .profile-item:hover {
+        background-color: #8ED1B3;
+    }
+    .profile-image {
+        border-radius: 50%;
+        border: 5px solid white;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+    .data-button {
+        font-family: 'Nunito', sans-serif;
+        font-size: 1.7rem;
+        cursor: pointer;
+        color: black; /* Cambio de color a negro */
+        justify-content: space-between; /* Distribución de espacio entre el nombre del campo y el dato */
+    }
+    .data-content {
+        display: inline; /* Se mostrará en línea con el nombre del campo */
+        font-size: 1.7rem;
+        color: black; /* Cambio de color a negro */
+    }
+    .data-button.active .data-content, .data-button.active {
+        font-size: 2.5rem; /* Tamaño más grande al hacer clic */
+    }
+    .data-button.active {
+        background-color: #359761; /* Fondo verde al hacer clic */
+    }
+    .logout-button {
+        background-color: #4C7A61;
+        color: rgb(0, 0, 0);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .logout-button:hover {
+        background-color: #3A6950;
+    }
+    #calendar {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+<div class="container profile-container mt-3 mb-5 p-3">
+    <div class="profile-header text-center">
+        <img src="{{ url_for('static', filename='path_to_agave_image.jpg') }}" alt="Agave" width="120" class="profile-image">
+        <h2 class="mt-3" style="color: black;">{{session['nombre']}}</h2> <!-- Cambio de color a negro -->
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item profile-item data-button d-flex" onclick="toggleSize(this)">
+            Campo Asignado: <span class="ml-auto data-content">{{session['campoAsignado']}}</span>
+        </li>
+        <li class="list-group-item profile-item data-button d-flex" onclick="toggleSize(this)">
+            Horas trabajadas: <span class="ml-auto data-content">{{session['horasTrabajadas']}}</span>
+        </li>
+        <li class="list-group-item profile-item data-button d-flex" onclick="toggleSize(this)">
+            Horas extras: <span class="ml-auto data-content">{{session['horasExtras']}}</span>
+        </li>
+        <li class="list-group-item profile-item data-button d-flex" onclick="toggleSize(this)">
+            Sueldo: <span class="ml-auto data-content">${{session['sueldo']}}</span>
+        </li>
+    </ul>
+    <!-- Calendario -->
+    <div class="mt-4">
+        <label for="workDate">Selecciona una fecha para agregar/modificar horas trabajadas:</label>
+        <input type="date" id="workDate" name="workDate" class="form-control">
+    </div>
+
+    <!-- Botón para cerrar sesión -->
+    <div class="mt-4 text-center">
+        <button class="logout-button" onclick="location.href='/logout'">Cerrar Sesión</button>
+    </div>
+</div>
+
+<script>
+    function toggleSize(element) {
+        if (element.classList.contains('active')) {
+            element.classList.remove('active');
+        } else {
+            element.classList.add('active');
+        }
+    }
+</script>
+
+{% endblock %}

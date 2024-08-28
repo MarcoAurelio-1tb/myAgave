@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+<title>{% block title %}Editar Campo{% endblock %}</title>
+{% block body %}
+
+<style>
+    .card {
+        background-color: #A8E6CF;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+        background-color: #4C7A61;
+        color: white;
+    }
+    .btn-primary {
+        background-color: #4C7A61;
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #3A6950;
+    }
+    label {
+        color: #5D4037;
+    }
+</style>
+
+<div class="col-md-6 offset-md-3">
+    <div class="card mb-3">
+        <div class="card-header text-center"><h2>Editar Campo</h2></div>
+        <div class="card-body">
+            <form action="/update_field/{{ campo.0 }}" method="POST">
+                <div class="form-group">
+                    <label for="maxAgaves">Cantidad de Agaves:</label>
+                    <input class="form-control" type="number" id="maxAgaves" name="maxAgaves" placeholder="Capacidad de Agaves" value="{{ campo.1 }}">
+                </div>
+                <div class="form-group">
+                    <label for="agavesPlantados">Agaves plantados:</label>
+                    <input class="form-control" type="number" id="agavesPlantados" name="agavesPlantados" placeholder="Agaves plantados" value="{{ campo.4 }}">
+                </div>
+                <div class="form-group">
+                    <label for="cantSurcos">Surcos Totales:</label>
+                    <input class="form-control" type="number" id="cantSurcos" name="cantSurcos" placeholder="Surcos Totales" value="{{ campo.3 }}">
+                </div>
+                <!-- Aquí puedes agregar más campos para editar según lo necesites -->
+                
+                <button class="btn btn-primary btn-block" type="submit">
+                    Guardar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

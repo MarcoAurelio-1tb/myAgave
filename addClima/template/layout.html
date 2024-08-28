@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <title>{% block title %}miAgave{% endblock %}</title>
+    <style>
+        body {
+            background-image: linear-gradient(120deg, #4C7A61, #A8E6CF);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .navbar {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 0.5%;
+            border-radius: 20px;
+            background-color: #3A6950;
+            font-weight: bold;
+        }
+        .navbar-brand, .nav-link {
+            font-weight: bold;
+            font-size: 24px;
+            transition: color 0.3s;
+            padding: 10px 20px;
+            border-radius: 15px;
+            color: #fff;
+        }
+        .nav-link:hover {
+            color: #A8E6CF;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .nav-link:hover{
+            transition: transform 0.3s ease;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg" data-bs-theme="light">
+  <div class="container-fluid">
+    <a class="nav-link" href="/home">miAgave</a>
+    {% if session['idAdmin'] %}
+        <a class="nav-link" href="/index">Registros</a>
+        <a class="nav-link" href="/informes">Informes</a>
+ 
+            <a class="nav-link" href="/clima">Clima</a>
+
+
+            <a class="nav-link" href="/agave_precio" id="btn-precio-agave">Agave Precio</a>
+
+
+    {% endif %}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav ml-auto">
+        {% if session['idAdmin'] %}
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Salir</a>
+        </li>
+        {% elif session['nombre'] %}
+        <li class="nav-item">
+          <a class="nav-link" href="indexUser">Mis datos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/clima">Clima</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="/acerca">Acerca de</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/contactanos">Contactanos</a>
+        </li>
+        
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container pt-4">
+    {% block body %}
+    {% endblock %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+
+</body>
+</html>

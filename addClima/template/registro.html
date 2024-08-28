@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+{% block title %}Registro de Trabajador{% endblock %}
+{% block body %}
+
+<style>
+    body {
+        background-color: #98aa99; 
+        background-image: url('/static/agave1.jpg'); 
+        background-size: cover;
+        background-attachment: fixed;
+        background-blend-mode: overlay;
+    }
+
+    .register-container {
+        background-color: rgba(147, 219, 149, 0.95);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        max-width: 360px;
+        margin: 60px auto;
+        backdrop-filter: blur(8px);
+    }
+
+    .register-title {
+        font-weight: bold;
+        color: #4C7A61;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 40px;
+    }
+
+    .btn-primary {
+        background-color: #4C7A61;
+        border-radius: 20px;
+        padding: 10px 15px;
+        font-size: 18px;
+        transition: background-color 0.3s;
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary:hover {
+        background-color: #628a74;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-group label {
+        display: block;
+        margin-top: 10px;
+        color: #4C7A61;
+        font-weight: 500;
+    }
+
+    .form-control {
+        border-radius: 20px;
+        border: 1px solid #ced4da;
+        padding: 12px;
+        font-size: 16px;
+    }
+</style>
+
+<div class="register-container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <h2 class="register-title">Registro de Trabajador</h2>
+    <form action="/register" method="POST">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input class="form-control" type="text" id="telefono" name="telefono" placeholder="Ingresa tu teléfono" required>
+        </div>
+
+        <div class="form-group">
+            <label for="contrasena">Contraseña</label>
+            <input class="form-control" type="password" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmar_contrasena">Confirmar Contraseña</label>
+            <input class="form-control" type="password" id="confirmar_contrasena" name="confirmar_contrasena" placeholder="Confirma tu contraseña" required>
+        </div>
+
+        <button class="btn btn-primary btn-block btn-lg mt-4" type="submit">Registrar</button>
+    </form>
+</div>
+
+{% endblock %}

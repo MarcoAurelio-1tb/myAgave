@@ -1,0 +1,556 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<style>
+    /* Estilos generales */
+    .admin-container {
+        background-color: rgba(182, 221, 190, 0.9);
+        border-radius: 40px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 5%;
+    }
+    .welcome-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding: 1%;
+    }
+    .welcome-message {
+        text-align: center;
+        color: #3A6950;
+    }
+    .date-container {
+        text-align: right;
+        flex: 1;
+        color: #3A6950;
+        font-size: xx-large;
+    }
+    .section-button {
+        width: 100%;
+        padding: 20px;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        transition: background-color 0.3s ease;
+    }
+    select {
+    color: #000000; /* Este color es para el texto dentro del select */
+    background-color: #ffffff; /* Fondo blanco para el select */
+    }
+
+    select option {
+        color: #0b2903; /* Este color es para las opciones, asegurando que sea visible */
+        background-color: #ffffff; /* Fondo blanco para las opciones */
+    }
+
+    .section-button:hover {
+        background-color: #3A6950;
+    }
+    .card {
+        background-color: #A8E6CF; /* Color verde acorde a la paleta */
+        border-radius: 15px;
+        overflow: hidden;
+    }
+    .card-header {
+        background-color: #4C7A61;
+        color: white;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .btn-primary {
+        background-color: #4C7A61;
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #3A6950;
+    }
+    .btn-info {
+        background-color: #4C7A61;
+        border: none;
+    }
+    .btn-info:hover {
+        background-color: #3A6950;
+    }
+    .btn-danger {
+        background-color: #E94E77;
+    }
+    .btn-danger:hover {
+        background-color: #D43A58;
+    }
+    .table {
+        background-color: #000000;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .table tbody tr td{
+        background-color: #ffffff;
+        color: #0b2903;
+        font-weight: 500;
+    }
+    .table thead {
+        background-color: #365b4d;
+        color: #ffffff;
+        font-weight: 500;
+    }
+    .table tbody tr:hover {
+        background-color: rgba(76, 122, 97, 0.074);
+    }
+</style>
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+<div class="container-xxl admin-container mt-3">
+
+    <!-- Mensaje de bienvenida y fecha -->
+    <div class="welcome-container">
+        <div class="welcome-message">
+            <h1 style="color: #0b2903;">Bienvenido, {{session['nombre']}}</h1>
+            <p style="color: #0b2903;">Panel de administrador</p>
+        </div>
+        <div class="date-container">
+            <p style="color: #0b2903;">{{ now.strftime('%d/%m/%Y') }}</p>
+        </div>
+    </div>
+    <!-- Botones para las diferentes secciones -->
+    <div class="container">
+        <div class="row m-2 p-4" style="background-color: #365b4d; border-radius: 30px;">
+            <div class="col-md-4" class="datos">
+                <button class="btn btn-primary section-button" onclick="showSection('users')">Usuarios/Trabajadores</button>
+            </div>
+            <div class="col-md-4">
+                <button id="tu-boton-vehiculos" class="btn btn-primary section-button" onclick="showSection('vehicles')">Vehículos</button>
+
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary section-button" onclick="showSection('fields')">Campos</button>
+            </div>
+            <!-- Puedes continuar con los demás botones aquí -->
+            <div class="col-md-4">
+                <button class="btn btn-primary section-button" onclick="showSection('tools')">Herramientas</button>
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-primary section-button" onclick="showSection('supplies')">Insumos</button>
+              </div>
+              <div class="col-md-4">
+                <button id="tu-boton-furrows" class="btn btn-primary section-button" onclick="showSection('furrows')">Surcos</button>
+              </div>
+        </div>
+    </div>
+
+    <!-- Contenido de las secciones -->
+    <div id="users" class="section-content">
+        <!-- Aquí va el contenido de Usuarios/Trabajadores que ya tienes -->
+        <!-- ... -->
+
+
+
+        <div class="container-xxl admin-container mt-5">
+
+            <!-- registro de registrar nuevo usuario -->
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+                    <div class="card mb-3 mt-3">
+                        <div class="card-header text-center"><h2>Registra usuario</h2></div>
+                        <div class="card-body">
+                            <form action="/add_contact" method="POST">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" autocomplete="off"  name="telefono" placeholder="Telefono" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" autocomplete="off" name="nombre" placeholder="Nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" autocomplete="off" name="contrasena" placeholder="Contraseña" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" autocomplete="off" name="campoAsignado" placeholder="Campo Asignado">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+            <!-- PARA LA TABLA -->
+            <div class="row m-3"></div>
+
+            <!-- TABLA -->
+            
+            <div class="row">
+                
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <table class="table table-sm text-center table-hover">
+                        <thead>
+                            <tr>
+                                <td class="align-middle">Telefono</td> 
+                                <td class="align-middle">Nombre</td> 
+                                <td class="align-middle">Contraseña</td>
+                                <td class="align-middle">Campo Asignado</td>
+                                <td class="align-middle">Horas Trabajadas</td>
+                                <td class="align-middle">Horas Extras</td>
+                                <td class="align-middle">Sueldo</td>
+                                <td class="align-middle">Cambios</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for trabajador in trabajadores %}
+                                <tr class="table-light" style="font-weight: bold; ">
+                                    <td class="align-middle">{{ trabajador.0 }}</td>
+                                    <td class="align-middle">{{ trabajador.1 }}</td>
+                                    <td class="align-middle">{{ trabajador.2 }}</td>
+                                    <td class="align-middle">{{ trabajador.3 }}</td>
+                                    <td class="align-middle">{{ trabajador.4 }}</td>
+                                    <td class="align-middle">{{ trabajador.5 }}</td>
+                                    <td class="align-middle">${{ trabajador.6 }}</td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="/edit/{{ trabajador.0 }}">Editar</a>
+                                        <a class="btn btn-danger btn-sm btn-delete" href="/delete/{{ trabajador.0 }}">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+    </div>  <!-- row -->
+
+    
+    <div id="vehicles" class="section-content" style="display: none;">
+        <!-- Contenido para la sección de Vehículos -->
+        <!-- Registro de nuevo vehículo -->
+    
+        <div class="container-xxl admin-container mt-5">
+            <!-- Mensajes del sistema (éxito, error, etc.) -->
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+    
+            <!-- Formulario de registro de vehículo -->
+            <div class="row mt-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="card mb-3 mt-2">
+                        <div class="card-header text-center"><h2>Registra Vehículo</h2></div>
+                        <div class="card-body">
+                            <form action="/add_vehicle" method="POST"> <!-- Cambia la acción según tu backend -->
+                                <div class="form-group">
+                                    <input class="form-control" type="text" autocomplete="off" name="placa" placeholder="Placa del Vehículo" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" autocomplete="off" name="marca" placeholder="Marca del Vehículo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="enCampo">Selecciona el Campo:</label>
+                                    <select class="form-control" name="enCampo" id="campo-select" required>
+                                        <option value="">Seleccione un Campo</option>
+                                        <!-- Las opciones se agregarán aquí por JavaScript -->
+                                    </select>
+                                    
+                                </div>
+                                
+                                <div class="form-group">
+                                    <textarea class="form-control" name="detalles" rows="3" placeholder="Detalles del Vehículo"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="number" step="0.01" autocomplete="off" name="litrosLlenados" placeholder="Litros de Combustible" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+    
+            <!-- ... Aquí iría la tabla para mostrar los vehículos registrados ... -->
+            <h2>Vehículos Registrados</h2>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-sm text-center table-hover">
+                        <thead>
+                            <tr>
+                                <th class="align-middle">Placa</th>
+                                <th class="align-middle">Marca</th>
+                                <th class="align-middle">Campo Asignado</th>
+                                <th class="align-middle">Detalles</th>
+                                <th class="align-middle">Litros de Combustible</th>
+                                <th class="align-middle">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for vehiculo in vehiculos %}
+                                <tr class="table-light" style="font-weight: bold;">
+                                    <td class="align-middle">{{ vehiculo.0 }}</td>
+                                    <td class="align-middle">{{ vehiculo.1 }}</td>
+                                    <td class="align-middle">{{ vehiculo.2 }}</td> <!-- Asegúrate de mostrar el nombre del campo, no su ID -->
+                                    <td class="align-middle">{{ vehiculo.3 }}</td>
+                                    <td class="align-middle">{{ vehiculo.4 }}</td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="/editvehicle/{{ vehiculo.0 }}">Editar</a>
+                                        <a class="btn btn-danger btn-sm btn-delete" href="/deletevehicle/{{ vehiculo.0 }}" onclick="return confirm('¿Estás seguro de querer eliminar este vehículo?');">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div id="tools" class="section-content" style="display: none;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-header text-center"><h2>Registrar Herramienta</h2></div>
+                    <div class="card-body">
+                        <form action="/add_tool" method="POST">
+                            <div class="form-group">
+                                <input class="form-control" type="text" autocomplete="off" name="nombreHerramienta" placeholder="Nombre de la Herramienta" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="number" autocomplete="off" name="existencias" placeholder="Existencias" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="comentarios" placeholder="Comentarios" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover mt-4">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Existencias</th>
+                            <th>Comentarios</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for herramienta in herramientas %}
+                        <tr>
+                            <td>{{ herramienta.0 }}</td>
+                            <td>{{ herramienta.1 }}</td>
+                            <td>{{ herramienta.2 }}</td>
+                            <td>{{ herramienta.3 }}</td>
+                            <td>
+                                <a href="/edit_tool/{{ herramienta.0 }}" class="btn btn-info btn-sm">Editar</a>
+                                <a href="/delete_tool/{{ herramienta.0 }}" class="btn btn-danger btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Puedes continuar con los demás contenidos de secciones aquí -->
+    <div id="furrows" class="section-content" style="display: none;">
+        <!-- Formulario de registro de Surcos -->
+        <div class="row mt-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="card mb-3 mt-2">
+                    <div class="card-header text-center"><h2>Registrar Surco</h2></div>
+                    <div class="card-body">
+                        <form action="/add_surco" method="POST">
+                            <div class="form-group">
+                                <input class="form-control" type="number" autocomplete="off" name="noSurco" placeholder="Número de Surco" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="number" autocomplete="off" name="capMax" placeholder="Capacidad Máxima" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="enCampo">Selecciona el Campo:</label>
+                                <select class="form-control" name="idCampo" id="campo-select-surcos" required>
+                                    <option value="">Seleccione un Campo</option>
+                                    <!-- Las opciones se agregarán aquí por JavaScript -->
+                                </select>
+                                
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    
+        <!-- Tabla para mostrar los Surcos registrados -->
+        <div class="row">
+            <div class="col-12">
+                <h2>Surcos Registrados</h2>
+                <table class="table table-sm text-center table-hover">
+                    <thead>
+                        <tr>
+                            <th class="align-middle">Número de Surco</th>
+                            <th class="align-middle">Capacidad Máxima</th>
+                            <th class="align-middle">Agaves Plantados</th>
+                            <th class="align-middle">Campo Asignado</th>
+                            <th class="align-middle">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- El backend debe pasar la variable 'surcos' a la plantilla -->
+                        {% for surco in surcos %}
+                            <tr class="table-light" style="font-weight: bold;">
+                                <td class="align-middle">{{ surco.0 }}</td>
+                                <td class="align-middle">{{ surco.1 }}</td>
+                                <td class="align-middle">{{ surco.2 }}</td>
+                                <td class="align-middle">{{ surco.3 }}</td> <!-- Asegúrate de mostrar el nombre del campo, no su ID -->
+                                <td>
+                                    <a class="btn btn-info btn-sm" href="/edit_surco/{{ surco.0 }}">Editar</a>
+                                    <a class="btn btn-danger btn-sm btn-delete" href="/delete_surco/{{ surco.0 }}" onclick="return confirm('¿Estás seguro de querer eliminar este surco?');">Eliminar</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="fields" class="section-content" style="display: none;">
+        <!-- Aquí va el contenido prototipo de Campos -->
+        <!-- Registro de nuevo campo -->
+
+        <div class="container-xxl admin-container mt-5">
+
+            <!-- registro de registrar nuevo usuario -->
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+            <div class="row mt-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="card mb-3 mt-2">
+                        <div class="card-header text-center"><h2>Registra Campo</h2></div>
+                        <div class="card-body">
+                            <form action="/add_field" method="POST"> <!-- Puedes cambiar la acción según tu backend -->
+                                <div class="form-group">
+                                    <input class="form-control" type="number" autocomplete="off" name="idCampo" placeholder="Número de campo" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="number" autocomplete="off" name="maxAgaves" placeholder="Capacidad de Agaves" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="number" autocomplete="off" name="cantSurcos" placeholder="Surcos Totales" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <h2>Campos</h2>
+            <!-- <p>Sección en construcción...</p> -->
+            <div class="row">
+                <!-- <div class="col-1"></div> -->
+                <div class="col-12">
+                    <table class="table table-sm text-center table-hover">
+                        <thead>
+                            <tr>
+                                <td class="align-middle">Número de Campo</td> 
+                                <td class="align-middle">Capacidad de Agaves</td> 
+                                <td class="align-middle">Agaves plantados</td> 
+                                <!-- <td></td> -->
+                                <td class="align-middle">Surcos Totales</td>
+                                <td class="align-middle">Cambios</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for campo in campos %}
+                                <tr class="table-light" style="font-weight: bold; ">
+                                    <td class="align-middle">{{ campo.0 }}</td>
+                                    <td class="align-middle">{{ campo.1 }}</td>
+                                    <td class="align-middle">{{ campo.4 }}</td>
+                                    <td class="align-middle">{{ campo.3 }}</td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="/editcampo/{{ campo.0 }}">Editar</a>
+                                        <a class="btn btn-danger btn-sm btn-delete" href="/deletecampo/{{ campo.0 }}">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}    
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div class="col-md-1"></div> -->
+            </div>
+
+            <div class="row">
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+</div>
+
+<script>
+    function showSection(sectionId) {
+        // Ocultar todas las secciones
+        const sections = document.querySelectorAll('.section-content');
+        sections.forEach(section => {
+            section.style.display = 'none';
+        });
+
+        // Mostrar la sección seleccionada
+        document.getElementById(sectionId).style.display = 'block';
+    }
+</script>
+
+
+{% endblock %}

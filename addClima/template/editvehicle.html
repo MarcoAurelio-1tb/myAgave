@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% block title %}Editar Vehículo{% endblock %}
+
+{% block body %}
+<style>
+    .card {
+        background-color: #A8E6CF; /* Color verde acorde a la paleta */
+        border-radius: 15px;
+        box-shadow: 0 4px 8px #0000001a;
+    }
+    .card-header {
+        background-color: #4C7A61; /* Color verde oscuro */
+        color: white;
+    }
+    .btn-primary {
+        background-color: #4C7A61; /* Color verde oscuro */
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #3A6950; /* Color verde más oscuro al pasar el mouse */
+    }
+    label {
+        color: #5D4037; /* Color café */
+    }
+</style>
+
+<div class="col-md-6 offset-md-3">
+    <div class="card mb-3">
+        <div class="card-header text-center"><h2>Editar Vehículo</h2></div>
+        <div class="card-body">
+            <form action="/update_vehiculo/{{ vehiculo.0 }}" method="POST">
+
+                <div class="form-group">
+                    <label for="modelo">Marca:</label>
+                    <input class="form-control" type="text" id="marca" name="marca" value="{{ vehiculo.1 }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="anio">En Campo:</label>
+                    <input class="form-control" type="number" id="enCampo" name="enCampo" value="{{ vehiculo.2 }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="color">Detalles:</label>
+                    <input class="form-control" type="text" id="detalles" name="detalles" value="{{ vehiculo.3 }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="matricula">Litros LLenados:</label>
+                    <input class="form-control" type="text" id="litrosLlenados" name="litrosLlenados" value="{{ vehiculo.4 }}">
+                </div>
+
+                <button class="btn btn-primary btn-block" type="submit">
+                    Guardar Cambios
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

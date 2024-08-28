@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+<title>{% block title %}Editar Usuario{% endblock %}</title>
+{% block body %}
+
+<style>
+    .card {
+        background-color: #A8E6CF; /* Color verde acorde a la paleta */
+        border-radius: 15px;
+        box-shadow: 0 4px 8px #0000001a;
+    }
+    .card-header {
+        background-color: #4C7A61; /* Color verde oscuro */
+        color: white;
+    }
+    .btn-primary {
+        background-color: #4C7A61; /* Color verde oscuro */
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #3A6950; /* Color verde más oscuro al pasar el mouse */
+    }
+    label {
+        color: #5D4037; /* Color café */
+    }
+</style>
+
+<div class="col-md-6 offset-md-3">
+    <div class="card mb-3">
+        <div class="card-header text-center"><h2>Editar datos</h2></div>
+        <div class="card-body">
+            <form action="/update/{{ trabajador.0 }}" method="POST">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" value="{{ trabajador.1 }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="contrasena">Contraseña:</label>
+                    <input class="form-control" type="text" id="contrasena" name="contrasena" placeholder="Contraseña" value="{{ trabajador.2 }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="campoAsignado">Campo Asignado:</label>
+                    <input class="form-control" type="text" id="campoAsignado" name="campoAsignado" placeholder="Campo Asignado" value="{{ trabajador.3 }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="horasTrabajadas">Horas Trabajadas:</label>
+                    <input class="form-control" type="number" id="horasTrabajadas" name="horasTrabajadas" placeholder="Horas Trabajadas" value="{{ trabajador.4 }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="horasExtras">Horas Extras:</label>
+                    <input class="form-control" type="number" id="horasExtras" name="horasExtras" placeholder="Horas Extras" value="{{ trabajador.5 }}">
+                </div>
+                
+                <button class="btn btn-primary btn-block" type="submit">
+                    Guardar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

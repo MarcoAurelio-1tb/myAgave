@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% block title %}Editar Herramienta{% endblock %}
+{% block body %}
+
+<style>
+    /* Tus estilos aquí */
+    .card {
+        background-color: #A8E6CF; /* Color verde acorde a la paleta */
+        border-radius: 15px;
+        box-shadow: 0 4px 8px #0000001a;
+    }
+    .card-header {
+        background-color: #4C7A61; /* Color verde oscuro */
+        color: white;
+    }
+    .btn-primary {
+        background-color: #4C7A61; /* Color verde oscuro */
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #3A6950; /* Color verde más oscuro al pasar el mouse */
+    }
+    label {
+        color: #5D4037; /* Color café */
+    }
+</style>
+
+<div class="col-md-6 offset-md-3">
+    <div class="card mb-3">
+        <div class="card-header text-center"><h2>Editar Herramienta</h2></div>
+        <div class="card-body">
+            <form action="{{ url_for('update_tool', idHerramienta=herramienta.0) }}" method="POST">
+                <div class="form-group">
+                    <label for="nombreHerramienta">Nombre de Herramienta:</label>
+                    <input class="form-control" type="text" id="nombreHerramienta" name="nombreHerramienta" placeholder="Nombre de Herramienta" value="{{ herramienta.1 }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="existencias">Existencias:</label>
+                    <input class="form-control" type="number" id="existencias" name="existencias" placeholder="Existencias" value="{{ herramienta.2 }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="comentarios">Comentarios:</label>
+                    <textarea class="form-control" id="comentarios" name="comentarios" rows="3">{{ herramienta.3 }}</textarea>
+                </div>
+                
+                <button class="btn btn-primary btn-block" type="submit">
+                    Actualizar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

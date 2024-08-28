@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block title %}Datos Climáticos{% endblock %}
+
+{% block body %}
+<div class="container pt-4">
+    <h1>Datos Climáticos</h1>
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Temperatura (°C)</th>
+                    <th>Humedad (%)</th>
+                    <th>Precipitación (mm)</th>
+                    <th>Velocidad del Viento (km/h)</th>
+                </tr>
+            </thead>
+            <tbody id="datos-climaticos">
+                <!-- Los datos climáticos se cargarán aquí -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .table-responsive {
+    background-color: #afafaf;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,.15);
+    overflow: hidden;
+    }
+
+    .table {
+        margin-bottom: 0; /* Remueve el espacio debajo de la tabla */
+    }
+
+    .thead-dark th {
+        background-color: #4C7A61; /* Color de fondo para los encabezados de la tabla */
+        color: #bcbcbc; /* Color del texto para los encabezados de la tabla */
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #939393; /* Color de fondo al pasar el ratón sobre las filas */
+    }
+
+    /* Estilos adicionales para mejorar la legibilidad y el diseño */
+    table tr th, table tr td {
+        vertical-align: middle; /* Alineación vertical para el contenido de la tabla */
+        text-align: center; /* Centra el texto en las celdas */
+    }
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+
+    function almacenarNuevosDatosClimaticos() {
+        $.ajax({
+            url: '/almacenar_datos_climaticos',
+            type: 'GET',
+            success: function(response) {
+                console.log(response.mensaje);
+            },
+            error: function() {
+                console.log('Error al almacenar los datos climáticos.');
+            }
+        });
+    }
+
+    // Llama a la función al cargar la página
+    almacenarNuevosDatosClimaticos();
+    function obtenerYMostrarDatosClimaticos() {
+    $.ajax({
+        url: '/obtener_datos_climaticos',
+        type: 'GET',
+        success: function(datos) {
+        if (datos.length > 0) {
+            var contenidoTabla = datos.map(function(dato) {
+                return '<tr>' +
+                    '<td>' + dato.fecha + '</td>' +
+                    '<td>' + dato.temperatura + '</td>' +
+                    '<td>' + dato.humedad + '</td>' +
+                    '<td>' + (dato.precipitacion || 'N/A') + '</td>' +
+                    '<td>' + (dato.velocidadViento || 'N/A') + '</td>' +
+                    '</tr>';
+            }).join('');
+            $('#datos-climaticos').html(contenidoTabla);
+        } else {
+            $('#datos-climaticos').html('<tr><td colspan="5">No hay datos disponibles.</td></tr>');
+        }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar los datos climáticos:', xhr, status, error); // Agrega esto para depurar
+            $('#datos-climaticos').text('Error al cargar los datos climáticos.');
+        }
+    });
+}
+
+
+    // Llama a la función al cargar la página
+    almacenarNuevosDatosClimaticos()
+    obtenerYMostrarDatosClimaticos();
+
+    // Puedes establecer un intervalo si deseas actualizar los datos periódicamente
+    //(almacenarNuevosDatosClimaticos, 60000);
+     setInterval(obtenerYMostrarDatosClimaticos, 60000);
+});
+</script>
+{% endblock %}

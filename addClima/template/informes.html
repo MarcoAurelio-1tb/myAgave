@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+<title>{% block title %}Informes{% endblock %}</title>
+{% block body %}
+
+<style>
+    .container {
+        margin-top: 3%;
+        background-color: rgba(182, 221, 190);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: black;
+        padding: 1%;
+        margin-bottom: 3%;
+    }
+    .datos {
+        background-color: rgb(221, 235, 224);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 1%;
+    }
+</style>
+
+<div class="container mt-1 mb-4 border border-danger">
+    <h2>Informes</h2>
+    <div class="btn-group" role="group" style="margin-bottom: 3%;">
+        <button type="button" class="btn btn-primary" onclick="showSection('trabajadores')">Trabajadores</button>
+        <button type="button" class="btn btn-primary" onclick="showSection('vehiculos')">Vehículos</button>
+        <button type="button" class="btn btn-primary" onclick="showSection('herramientas')">Herramientas</button>
+        <button type="button" class="btn btn-primary" onclick="showSection('campos')">Campos</button>
+        <button type="button" class="btn btn-primary" onclick="showSection('insumos')">Insumos</button>
+        <a class="btn btn-secondary" href="/generate_pdf">Descargar Informe</a>
+    </div>
+    <div class="d-grid gap-2"></div>
+
+    <div class="datos">
+        <!-- Sección de Trabajadores -->
+        <div id="trabajadores" class="mt-5 mb-4">
+            <h3>Trabajadores</h3>
+            <canvas id="trabajadoresChart" width="800" height="300"></canvas>
+        </div>
+
+        <!-- Sección de Campos -->
+        <div id="campos" class="mt-5 mb-4" style="display: none;">
+            <h3>Campos</h3>
+            <canvas id="camposChart" width="800" height="300"></canvas>
+            
+        </div>
+
+        <!-- Secciones adicionales (Vehículos, Herramientas, etc.) -->
+        <!-- ... -->
+    </div>
+
+    <!-- Datos incrustados para JavaScript usando elementos ocultos -->
+    <div id="trabajadoresLabels" style="display:none;"><strong>{% for trabajador in trabajadores %}{{ trabajador.nombre }},{% endfor %}</strong></div>
+    <div id="trabajadoresHorasTrabajadas" style="display:none;">{% for trabajador in trabajadores %}{{ trabajador.horasTrabajadas }},{% endfor %}</div>
+    <div id="trabajadoresHorasExtras" style="display:none;">{% for trabajador in trabajadores %}{{ trabajador.horasExtras }},{% endfor %}</div>
+
+    <!-- Datos para campos (a ser completados con los datos reales) -->
+    <div id="camposIdLabels" style="display:none;"><strong>{% for campo in campos %}Campo {{ campo.idCampo }},{% endfor %}</strong></div>
+    <div id="camposAgavesPlantadosData" style="display:none;">{% for campo in campos %}{{ campo.agavesPlantados }},{% endfor %}</div>
+    <div id="camposMaxAgavesData" style="display:none;">{% for campo in campos %}{{ campo.maxAgaves }},{% endfor %}</div>
+
+
+    <!-- Enlaza el archivo JavaScript externo -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</div>
+{% endblock %}

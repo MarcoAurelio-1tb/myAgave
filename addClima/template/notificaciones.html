@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% block title %}Editar Herramienta{% endblock %}
+{% block body %}
+
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+    body {
+        background-color: #98aa99; /* Un color suave de fondo que combina con la paleta de colores */
+        background-image: url("{{ url_for('static', filename='agave1.jpg') }}"); /* Asegúrate de que la imagen exista en tu carpeta static */
+        background-size: cover;
+        background-attachment: fixed;
+        background-blend-mode: overlay;
+    }
+    /* Tus estilos aquí */
+    .card {
+        background-color: #A8E6CF; /* Color verde acorde a la paleta */
+        border-radius: 15px;
+        box-shadow: 0 4px 8px #0000001a;
+    }
+    .card-header {
+        background-color: #4C7A61; /* Color verde oscuro */
+        color: white;
+    }
+    .btn-primary {
+        background-color: #4C7A61; /* Color verde oscuro */
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #3A6950; /* Color verde más oscuro al pasar el mouse */
+    }
+    label {
+        color: #5D4037; /* Color café */
+    }
+</style>
+
+<div class="col-md-6 offset-md-3">
+    <div class="card mb-3">
+        <div class="card-header text-center"><h2>Enviar Mensaje a Trabajador</h2></div>
+        <div class="card-body">
+            <form action="{{ url_for('enviar_mensaje') }}" method="POST">
+                <div class="form-group">
+                    <label for="telefonoTrabajador">Teléfono del Trabajador:</label>
+                    <input class="form-control" type="text" id="telefonoTrabajador" name="telefonoTrabajador" value="{{ telefono }}" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea class="form-control" id="mensaje" name="mensaje" rows="3" required></textarea>
+                </div>
+
+                <!-- Otros campos como fecha y hora si son necesarios -->
+                
+                
+                <button class="btn btn-primary btn-block" type="submit">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+{% block title %}Inicio{% endblock %}
+{% block body %}
+
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+    body {
+        background-color: #98aa99; /* Un color suave de fondo que combina con la paleta de colores */
+        background-image: url("{{ url_for('static', filename='agave1.jpg') }}"); /* Asegúrate de que la imagen exista en tu carpeta static */
+        background-size: cover;
+        background-attachment: fixed;
+        background-blend-mode: overlay;
+    }
+    .welcome-container {
+        background-color: rgba(147, 219, 149, 0.8);
+        border-radius: 25px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative; /* para posicionar sobre el overlay si es necesario */
+        z-index: 10; /* asegura que esté por encima del overlay */
+    }
+    .card {
+        background-color: rgba(147, 219, 149, 0.886); /* Color de fondo con opacidad */
+        border-radius: 15px; /* Bordes redondeados */
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Sombra suave */
+        /*backdrop-filter: blur(8px); /* Efecto de desenfoque para un fondo más estilizado */
+        transition: transform 0.3s ease;
+        margin: 0 auto; /* Centrado del recuadro de login */
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+    .card h3 {
+        font-weight: bold;
+        color: #4C7A61;
+    }
+    /* Estilos de botones ajustados para ser consistentes con el .login-container */
+.btn-primary, .btn-outline-primary {
+    /* Estilos comunes a ambos botones */
+    background-color: #4C7A61; /* Color de fondo sólido para el botón */
+    border-radius: 20px; /* Bordes redondeados */
+    padding: 10px 15px;
+    font-size: 18px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(134, 125, 125, 0.0); /* Sombra suave para el botón */
+    width: auto; /* Ajusta el ancho automáticamente según el contenido del botón */
+    display: inline-block; /* Para que los botones no tomen el ancho completo */
+    margin: 10px; /* Espaciado alrededor de los botones */
+}
+
+.btn-primary {
+    background-color: #4C7A61; /* Color de fondo sólido para el botón */
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #628a74; /* Color de fondo al pasar el ratón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el mouse */
+}
+
+.btn-outline-primary {
+    background-color: #A8E6CF; /* Fondo acorde a la paleta de colores */
+    color: #4C7A61; /* Color del texto */
+}
+
+.btn-outline-primary:hover {
+    background-color: #8DBEB8; /* Un verde más oscuro para el efecto hover */
+    color: white;
+}
+    .agave-image {
+        width: 100px;
+    }
+    .action-container {
+        text-align: center;
+        margin-top: 30px;
+    }
+    .btn-long {
+        display: block;
+        width: 50%;
+        margin: 10px auto;
+    }
+</style>
+
+<div class="container mt-2">
+    <div class="welcome-container text-center mb-5">
+        <img src="{{ url_for('static', filename='path_to_agave_image.jpg') }}" alt="Agave" class="agave-image">
+        <div>
+            <h1>Bienvenido</h1>
+            <p>Por favor, inicia sesión o crea una cuenta para continuar.</p>
+        </div>
+        <img src="{{ url_for('static', filename='path_to_agave_image.jpg') }}" alt="Agave" class="agave-image">
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card text-center p-4">
+                <h3>Usuario</h3>
+                <p>Accede a tu perfil y gestiona tus datos.</p>
+                <a class="btn btn-primary btn-lg mb-3" href="/login_pag">Iniciar Sesión</a>
+                <br>
+                <a class="btn btn-outline-primary btn-lg" href="#">Crear Usuario</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

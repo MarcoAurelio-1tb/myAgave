@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+<title>{% block title %}Datos{% endblock %}</title>
+{% block body %}
+
+<div class="container text-center mb-3 border border-danger">
+<h1>hola</h1>
+</div>
+
+<div class="container text-center mb-3 border border-primary p-4">
+    <div class="btn-group" role="group" style="margin-bottom: 2%;">
+        {% for campo in campos %}
+        <button type="button" class="btn btn-primary btn-lg" data-campo-id="{{ campo.0 }}" onclick="mostrarValor(this)">Campo {{ campo.0 }}</button>
+        {% endfor %}
+    </div>
+    <!-- Secciones de los surcos de los campos -->
+    
+    <div class="container text-center border border-secondary p-3"  id="valor-boton">
+        <!-- Aqui quiero mostrar el valor del boton -->
+    </div>
+
+</div>
+
+<script>
+    function mostrarValor(boton) {
+        var valorBoton = boton.textContent;
+        document.getElementById('valor-boton').innerHTML = valorBoton;
+    }
+</script>
+
+<!-- <div id="campo1" class="btn btn-secondary" style="display: none;">
+        <!-- Aquí va el contenido prototipo de Vehículos 
+        <div class="container border border-secondary p-2">
+    
+        </div>
+    </div> -->
+
+
+{% endblock%}

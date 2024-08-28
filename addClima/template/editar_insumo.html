@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+{% block title %}Editar Insumo{% endblock %}
+{% block body %}
+
+<style>
+    /* Tus estilos aquí */
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+    body {
+        background-color: #98aa99; /* Un color suave de fondo que combina con la paleta de colores */
+        background-image: url("{{ url_for('static', filename='agave1.jpg') }}"); /* Asegúrate de que la imagen exista en tu carpeta static */
+        background-size: cover;
+        background-attachment: fixed;
+        background-blend-mode: overlay;
+    }
+    .card {
+        background-color: #A8E6CF; /* Color verde acorde a la paleta */
+        border-radius: 15px;
+        box-shadow: 0 4px 8px #0000001a;
+    }
+    .card-header {
+        background-color: #4C7A61; /* Color verde oscuro */
+        color: white;
+    }
+    .btn-primary {
+        background-color: #4C7A61; /* Color verde oscuro */
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #3A6950; /* Color verde más oscuro al pasar el mouse */
+    }
+    label {
+        color: #5D4037; /* Color café */
+    }
+</style>
+
+<div class="col-md-6 offset-md-3">
+    <div class="card mb-3">
+        <div class="card-header text-center"><h2>Editar Insumo</h2></div>
+        <div class="card-body">
+            <form action="{{ url_for('update_supply', idInsumo=insumo.0) }}" method="POST">
+                <div class="form-group">
+                    <label for="Insumo">Nombre del Insumo:</label>
+                    <input class="form-control" type="text" id="Insumo" name="Insumo" placeholder="Nombre del Insumo" value="{{ insumo.1 }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="FechaCompra">Fecha de Compra:</label>
+                    <input class="form-control" type="date" id="FechaCompra" name="FechaCompra" placeholder="Fecha de Compra" value="{{ insumo.2 }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="precio">Precio:</label>
+                    <input class="form-control" type="number" step="0.01" id="precio" name="precio" placeholder="Precio" value="{{ insumo.3 }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cantidad">Cantidad:</label>
+                    <input class="form-control" type="number" id="cantidad" name="cantidad" placeholder="Cantidad" value="{{ insumo.4 }}" required>
+                </div>
+                
+                <button class="btn btn-primary btn-block" type="submit">
+                    Actualizar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

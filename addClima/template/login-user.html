@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+{% block title %}Inicio de Sesión{% endblock %}
+{% block body %}
+
+<style>
+    body {
+        /*background-color: #b3c5b4; #808481;*/
+        background-color: #98aa99; /* Un color suave de fondo que combina con la paleta de colores */
+        background-image: url('/static/agave1.jpg'); /* Agrega tu propia imagen */
+        background-size: cover;
+        background-attachment: fixed;
+        background-blend-mode: overlay;
+    }
+
+    .login-container {
+        background-color: rgba(147, 219, 149, 0.95); /* Ligeramente más opaco para mejorar la legibilidad */
+        border-radius: 15px; /* Bordes redondeados menos pronunciados */
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Sombra más suave y extendida */
+        max-width: 360px;
+        margin: 60px auto;
+        backdrop-filter: blur(8px); /* Efecto de desenfoque en el contenedor para un fondo más estilizado */
+    }
+
+    .login-title {
+        font-weight: bold;
+        color: #4C7A61;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 40px;
+    }
+
+    .btn-primary {
+        background-color: #4C7A61;/* #4C7A61 */
+        border-radius: 20px; /* Botones con bordes más redondeados */
+        padding: 10px 15px;
+        font-size: 18px;
+        transition: background-color 0.3s;
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para el botón */
+    }
+
+    .btn-primary:hover {
+        background-color: #628a74;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el mouse */
+    }
+
+    .form-group label {
+        display: block;
+        margin-top: 10px;
+        color: #4C7A61; /* Color de etiqueta que combina con la paleta */
+        font-weight: 500;
+    }
+
+    .form-control {
+        border-radius: 20px; /* Entradas con bordes redondeados */
+        border: 1px solid #ced4da;
+        padding: 12px;
+        font-size: 16px;
+    }
+</style>
+
+<div class="login-container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <h2 class="login-title">Iniciar Sesión</h2>
+    <form action="/login_user" method="POST">
+        <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input class="form-control" type="text" id="telefono" name="telefono" placeholder="Ingresa tu teléfono" required>
+        </div>
+
+        <div class="form-group">
+            <label for="contrasena">Contraseña</label>
+            <input class="form-control" type="password" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required>
+        </div>
+
+        <button class="btn btn-primary btn-block btn-lg mt-4" type="submit">Iniciar Sesión</button>
+    </form>
+</div>
+
+{% endblock %}
+

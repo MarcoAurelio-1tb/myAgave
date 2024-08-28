@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block title %}Acerca de miAgave{% endblock %}
+{% block body %}
+
+<style>
+    .info-container {
+        background-color: rgba(147, 219, 149, 0.8);
+        border-radius: 25px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    .info-title {
+        font-weight: bold;
+        color: #4C7A61;
+        margin-bottom: 15px;
+    }
+    .info-text {
+        color: #4C7A61;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="info-container">
+        <h2 class="info-title">La Importancia del Agave</h2>
+        <p class="info-text">
+            El agave es una planta con una rica historia y una amplia variedad de usos. Desde la producción de tequila hasta su uso en medicina tradicional, el agave ha sido una parte integral de muchas culturas a lo largo de los años.
+        </p>
+    </div>
+
+    <div class="info-container">
+        <h2 class="info-title">Beneficios del Agave</h2>
+        <p class="info-text">
+            Además de su uso en bebidas alcohólicas, el agave tiene propiedades medicinales y nutritivas. Es una fuente rica de inulina, un tipo de fibra que puede ayudar a mejorar la digestión y reducir el riesgo de enfermedades cardíacas.
+        </p>
+    </div>
+
+    <div class="info-container">
+        <h2 class="info-title">Sostenibilidad y Agave</h2>
+        <p class="info-text">
+            Con la creciente demanda de productos de agave, es esencial adoptar prácticas de cultivo sostenibles para proteger el medio ambiente y garantizar que esta valiosa planta esté disponible para las generaciones futuras.
+        </p>
+    </div>
+</div>
+
+{% endblock %}

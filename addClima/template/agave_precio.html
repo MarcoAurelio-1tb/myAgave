@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block title %}Precio Agave{% endblock %}
+
+{% block body %}
+<div class="container pt-4">
+    <div class="text-center">
+        <h1 class="display-4">Precio Actual del Agave (AGVE)</h1>
+        <div id="precio-agve" class="precio-card mt-4">
+            <!-- El precio del AGVE se cargará aquí -->
+        </div>
+    </div>
+</div>
+
+<style>
+    .precio-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    width: auto;
+    }
+
+    .precio-card p {
+        font-size: 1.5rem;
+        color: #333;
+        margin: 0;
+    }
+
+    .precio-card span {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #4C7A61;
+    }
+
+    /* Animación para el precio */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .precio-animado {
+        animation-name: fadeIn;
+        animation-duration: 1s;
+    }
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    function obtenerYMostrarPrecioAgave() {
+        $.ajax({
+            url: '/obtener_ultimo_precio_agve',
+            type: 'GET',
+            success: function(data) {
+                if (!data.error) {
+                    $('#precio-agve').html(
+                        '<p class="precio-animado">Último precio del AGVE: <span>$' +
+                        data.precio.toFixed(2) + '</span><br>' +
+                        '(Actualizado en: ' + data.fecha + ')</p>'
+                    ).addClass('precio-animado'); // Agrega la clase para la animación
+                } else {
+                    $('#precio-agve').text(data.error);
+                }
+            },
+            error: function() {
+                $('#precio-agve').text('Error al cargar el precio del AGVE.');
+            }
+        });
+    }
+
+    // Llama a la función al cargar la página
+    obtenerYMostrarPrecioAgave();
+
+    // Establecer un intervalo para actualizar el precio cada minuto
+    setInterval(obtenerYMostrarPrecioAgave, 60000);
+});
+</script>
+{% endblock %}

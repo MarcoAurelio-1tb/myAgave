@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% block title %}Contáctanos - miAgave{% endblock %}
+{% block body %}
+
+<style>
+    .contact-container {
+        background-color: rgba(147, 219, 149, 0.8);
+        border-radius: 25px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    .contact-title {
+        font-weight: bold;
+        color: #4C7A61;
+        margin-bottom: 15px;
+    }
+    .contact-text {
+        color: #4C7A61;
+    }
+    .footer-bar {
+        background-color: #888888; /* Color gris */
+        padding: 10px 0;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="contact-container">
+        <h2 class="contact-title">Información de Contacto</h2>
+        <p class="contact-text">
+            <strong>Dirección:</strong> Calle Agave 123, Ciudad Tequila, 45678, País.
+        </p>
+        <p class="contact-text">
+            <strong>Teléfono:</strong> +123 456 7890
+        </p>
+        <p class="contact-text">
+            <strong>Email:</strong> contacto@miagave.com
+        </p>
+    </div>
+
+    <div class="contact-container">
+        <h2 class="contact-title">Horarios de Atención</h2>
+        <p class="contact-text">
+            Lunes a Viernes: 9:00 AM - 6:00 PM
+        </p>
+        <p class="contact-text">
+            Sábados: 10:00 AM - 4:00 PM
+        </p>
+        <p class="contact-text">
+            Domingos: Cerrado
+        </p>
+    </div>
+</div>
+
+<div class="footer-bar"></div>
+
+{% endblock %}
